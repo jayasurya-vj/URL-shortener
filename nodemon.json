@@ -1,0 +1,7 @@
+{
+    "env":{
+        "MONGO_PWD":"KMT4wr53QyppC8Ww",
+        "SESSION_SECRET":"secret_this_should_be_really_long"
+
+    }
+}

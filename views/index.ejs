@@ -9,7 +9,15 @@
 </head>
 <body>
 <div class="container">
-<h1>URL Shortener</h1>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">URL Shortener</span>
+          <span class="d-flex">
+            <h4>Hi, name</h4>
+            <a href="/logout">Logout</a>
+          </span>
+        </div>
+      </nav>
 <form action="/shortUrls" method="POST" class="my-4 form-inline">
     <!-- <label for="fullUrl" class="sr-only">Long Url</label> -->
     <input id="fullUrl" name="fullUrl" type="url" placeholder="Long Url">
