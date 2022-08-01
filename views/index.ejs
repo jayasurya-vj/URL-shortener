@@ -12,35 +12,41 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">URL Shortener</span>
-          <span class="d-flex">
-            <h4>Hi, name</h4>
-            <a href="/logout">Logout</a>
-          </span>
+          <div class="d-flex">
+            <span><h5 class="text-primary text-capitalize fw-bold">Hi, <%= name %></h5></span>
+            <span><a href="/logout" class="link-secondary mx-4">Logout</a></span> 
+          </div>
         </div>
       </nav>
 <form action="/shortUrls" method="POST" class="my-4 form-inline">
     <!-- <label for="fullUrl" class="sr-only">Long Url</label> -->
+    <!-- <div class="input-group mb-3">
     <input id="fullUrl" name="fullUrl" type="url" placeholder="Long Url">
-    <button type="submit" class="btn btn-success">Get short URL</button>
+    <button type="submit" class="btn btn-outline-primary btn-sm">Get short URL</button>
+</div> -->
+
+    <div class="input-group mb-3">
+        <input  class="form-control" id="fullUrl" name="fullUrl" type="url" placeholder="Long Url" aria-describedby="button-addon2">
+        <button class="btn btn-primary"  type="submit" id="button-addon2">Get short URL</button>
+      </div>
 </form>
     <table class="table table-striped table-responsive">
         <thead>
             <tr>
                 <th>Long Url</th>
                 <th>Short Url </th>
-                <th>Visits</th>
             </tr>
         </thead>
         <tbody>
             <% urls.forEach(url => { %>
             <tr>
                 <td><a href="<%= url.full %>"> <%= url.full %> </td>
-                    <td><a href="<%= url.short %>"> <%= url.short  %> </td>
-                <td> <%= url.visits  %> </td>
+                    <td><a href="<%= url.short %>"> <%= url.short  %> 
+                    </td>
             </tr>           
             <% }) %>
         </tbody>
     </table>
 </div>
 </body>
-</html>.
+</html>

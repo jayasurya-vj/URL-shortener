@@ -10,11 +10,6 @@ export const shortUrlSchema = new mongoose.Schema({
         type:String,
         required:true,
         default: shortId.generate
-    },
-    visits:{
-        type:Number,
-        required:true,
-        default: 0
     }
 });
 

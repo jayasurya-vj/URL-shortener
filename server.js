@@ -10,7 +10,7 @@ import flash from "express-flash";   //for flash messages
 import session from "express-session";
 import uniqueValidator from "mongoose-unique-validator";
 
-mongoose.connect("mongodb+srv://jayasurya:"+ process.env.MONGO_PWD +"@cluster0.trotk.mongodb.net/mean-app?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://jayasurya:"+ process.env.MONGO_PWD +"@cluster0.trotk.mongodb.net/url-shortener?retryWrites=true&w=majority")
 .then(()=>console.log("connected successfully"))
 .catch(()=>console.log("connection failed"));
 
@@ -80,15 +80,15 @@ app.get("/",(req,res)=>{
     // console.log("in post logion")
     if(!req.isAuthenticated()) { res.redirect('/login'); }
     else{
-        console.log(req.user)
+        console.log(req.user,"###############")
         let pageData = ShortUrl.find();
         pageData.then(data=>{
             console.log(data);
-            res.render("index",{urls : data});
+            res.render("index",{urls : data, name:req.user.name});
     
         }).catch(err=>{
            console.log(err);
-           res.render("index",{urls : []});
+           res.render("index",{urls : [],name:req.user.name});
           });
     }
 })
@@ -98,7 +98,7 @@ app.get("/login",checkNotAuthenticated,(req,res)=>{
 })
 
 app.get("/register",checkNotAuthenticated,(req,res)=>{   
-    res.render("register.ejs");   
+    res.render("register.ejs",{message: ""});   
 })
 
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
@@ -119,16 +119,21 @@ app.post("/register",checkNotAuthenticated,(req,res)=>{
 
             user.save()
                 .then(result=>{
-                    console.log(result);
-                    res.redirect('/');
+                    // console.log(result);
+                    res.redirect('/login');
                 })
                 .catch(err=>{
-                    // console.log(err);
-                    res.redirect('/register');
+                    console.log("err",err);
+                    if(err){
+                    res.render("register.ejs",{message: "Email already registered. Try with a different email Id or Login"});
+                   }
+                    else{
+                        res.render("register.ejs",{message: "Registration failed"});
+                    }
                 })
         }).catch(err=>{
-            // console.log(err);
-            res.redirect('/register');
+            console.log(err);
+            res.render("register.ejs",{message: "Registration failed"});
         });
 })
 
