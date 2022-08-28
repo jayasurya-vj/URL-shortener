@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "name": "URL-shortener",
     "builds": [
        { "src": "./server.js", "use": "@vercel/node" }
     ],
