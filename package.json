@@ -4,6 +4,9 @@
   "description": "Url shortener service created with Noejs, Express and MongoDB",
   "type": "module",
   "main": "server.js",
+  "engines":{
+    "node" : "14.x"
+  },
   "scripts": {
     "start": "node server.js",
     "devStart": "nodemon server.js"
@@ -17,11 +20,7 @@
   "bugs": {
     "url": "https://github.com/jayasurya-vj/URL-shortener/issues"
   },
-  "homepage": "https://github.com/jayasurya-vj/URL-shortener#readme",
-  "devDependencies": {
-    "dotenv": "^16.0.1",
-    "nodemon": "^2.0.19"
-  },
+  "homepage": "https://github.com/jayasurya-vj/URL-shortener#readme",  
   "dependencies": {
     "bcrypt": "^5.0.1",
     "ejs": "^3.1.8",
@@ -33,5 +32,9 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.19"
   }
 }

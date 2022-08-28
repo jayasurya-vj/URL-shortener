@@ -204,4 +204,4 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-app.listen(process.env.PORT || 3500);
+app.listen(process.env.PORT || 6789, ()=>{console.log("server is running")});
