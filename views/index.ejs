@@ -18,6 +18,15 @@
           </div>
         </div>
       </nav>
+      <br>
+
+      <% if(errMsg) { %>
+        <div class="alert alert-danger" role="alert">
+          <%= errMsg %>
+        </div>
+      <% } %>
+
+
 <form action="/shortUrls" method="POST" class="my-4 form-inline">
     <!-- <label for="fullUrl" class="sr-only">Long Url</label> -->
     <!-- <div class="input-group mb-3">
@@ -40,8 +49,8 @@
         <tbody>
             <% urls.forEach(url => { %>
             <tr>
-                <td><a href="<%= url.full %>"> <%= url.full %> </td>
-                    <td><a href="<%= url.short %>"> <%= url.short  %> 
+                <td><a href="<%= url.full %>" target="_blank"> <%= url.full %> </td>
+                    <td><a href="<%= url.short %>" target="_blank"><%= origin %><%= url.short  %> 
                     </td>
             </tr>           
             <% }) %>

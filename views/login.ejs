@@ -14,6 +14,11 @@
           <span class="navbar-brand mb-0 h1">URL Shortener - Login </span>          
         </div>
       </nav>
+      <% if(sucMsg) { %>
+        <div class="alert alert-success" role="alert">
+          <%= sucMsg %>
+        </div>
+      <% } %>
         <% if(messages.error) { %>
           <div class="alert alert-danger" role="alert">
             <%= messages.error %>

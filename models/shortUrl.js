@@ -10,7 +10,8 @@ export const shortUrlSchema = new mongoose.Schema({
         type:String,
         required:true,
         default: shortId.generate
-    }
+    },
+    creator: {type:mongoose.Schema.Types.ObjectId, ref:"User",required:true}
 });
 
 export const ShortUrl = mongoose.model("ShortUrl",shortUrlSchema);
