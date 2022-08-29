@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import shortId from "shortId";    //for shorturl genration
+import shortId from "shortid";    //for shorturl genration
 
 export const shortUrlSchema = new mongoose.Schema({
     full:{
