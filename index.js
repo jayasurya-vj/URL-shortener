@@ -8,6 +8,8 @@ import passport from "passport";
 import LocalStrategy from "passport-local";
 import flash from "express-flash";   //for flash messages
 import session from "express-session";
+import path from 'path';
+const __dirname = path.resolve();
 
 mongoose.connect("mongodb+srv://jayasurya:" + process.env.MONGO_PWD + "@cluster0.trotk.mongodb.net/url-shortener?retryWrites=true&w=majority")
     .then(() => console.log("connected successfully"))
