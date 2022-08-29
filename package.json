@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/jayasurya-vj/URL-shortener#readme",  
   "dependencies": {
+    "shortid": "^2.2.16",
     "bcrypt": "^5.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
@@ -30,8 +31,8 @@
     "mongoose": "^6.4.4",
     "mongoose-unique-validator": "^3.1.0",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
-    "shortid": "^2.2.16"
+    "passport-local": "^1.0.0"
+    
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
