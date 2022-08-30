@@ -24,6 +24,11 @@
             <%= messages.error %>
           </div>
         <% } %>
+        <% if(errMsg) { %>
+          <div class="alert alert-danger" role="alert">
+            <%= errMsg %>
+          </div>
+        <% } %>
     <form action="/login" method="POST">
         <div class="mb-3">
           <label for="InputEmail1" class="form-label">Email address</label>

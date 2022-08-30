@@ -11,8 +11,10 @@ import session from "express-session";
 import path from 'path';
 const __dirname = path.resolve();
 
-mongoose.connect("mongodb+srv://jayasurya:" + process.env.MONGO_PWD + "@cluster0.trotk.mongodb.net/url-shortener?retryWrites=true&w=majority")
-    .then(() => console.log("connected successfully"))
+
+
+mongoose.connect("mongodb+srv://jayasurya:"+ process.env.MONGO_PWD +"@cluster0.trotk.mongodb.net/url-shortener?retryWrites=true&w=majority")
+    .then(()=>console.log("connected successfully"))
     .catch((e) => console.log("connection failed", e));
 
 function initializePassport() {
@@ -80,10 +82,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("/", (req, res) => {
-    if (!req.isAuthenticated()) { res.redirect('/login'); }
+    let domain = "https://" + req.get("host") + "/";
+    let errMsg = '';
+    if (!req.isAuthenticated()) { 
+        // res.redirect('/login'); 
+        res.render("index", { urls: [], name: null, errMsg, origin: domain });
+    }
     else {
-        let domain = "https://" + req.get("host") + "/";
-        let errMsg = '';
         console.log(req.user, "=>req.user");
         let redirect = req.query.redirect;
         if (!redirect) errMsg = '';
@@ -91,7 +96,7 @@ app.get("/", (req, res) => {
         else if (redirect == "error") errMsg = 'Something went wrong.Please try again after sometime.';
         let pageData = ShortUrl.find({ creator: req.user._id });
         pageData.then(data => {
-            console.log(data, "url data");
+            // console.log(data, "url data");
             res.render("index", { urls: data, name: req.user.name, errMsg, origin: domain });
             res.end();
 
@@ -103,7 +108,7 @@ app.get("/", (req, res) => {
 })
 
 app.get("/login", checkNotAuthenticated, (req, res) => {
-    res.render("login.ejs", { sucMsg: "" });
+    res.render("login.ejs", { sucMsg: "",errMsg: "" });
 })
 
 app.get("/register", checkNotAuthenticated, (req, res) => {
@@ -127,7 +132,7 @@ app.post("/register", checkNotAuthenticated, (req, res) => {
 
             user.save()
                 .then(result => {
-                    res.render("login.ejs", { sucMsg: "Registration successful! Please login now." });
+                    res.render("login.ejs", { sucMsg: "Registration successful! Please login now." ,errMsg: ""});
                 })
                 .catch(err => {
                     console.log("err in saving reqiesteration", err);
@@ -153,11 +158,13 @@ app.get('/logout', (req, res) => {
 
 
 app.post("/shortUrls", (req, res) => {
-    let domain = "https://" + req.get("host") + "/";
+    if (!req.isAuthenticated()) { 
+        res.render("login.ejs", { errMsg: "Please login/register to shorten the Url" ,sucMsg: "" });
+    }
+    else {
     let shortUrlExisting = ShortUrl.find({ full: req.body.fullUrl.trim(), creator: req.user._id });
     shortUrlExisting.then(reslt => {
         console.log(reslt, reslt.length, "=> preexistig long url");
-        let domain = "https://" + req.get("origin") + "/";
         if (reslt.length > 0) {
             res.redirect("/?redirect=duplicate");
         } else {
@@ -174,6 +181,7 @@ app.post("/shortUrls", (req, res) => {
         console.log(err, "error in post url");
         res.redirect("/?redirect=error");
     });
+}
 });
 
 

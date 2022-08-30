@@ -12,10 +12,16 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand mb-0 h1">URL Shortener</span>
+          
           <div class="d-flex">
+            <% if(name) { %>
             <span><h5 class="text-primary text-capitalize fw-bold">Hi, <%= name %></h5></span>
             <span><a href="/logout" class="link-secondary mx-4">Logout</a></span> 
+            <%} else { %>
+              <span><a href="/login" class="link-secondary mx-4">Login</a></span> 
+              <% } %>
           </div>
+          
         </div>
       </nav>
       <br>
@@ -39,6 +45,7 @@
         <button class="btn btn-primary"  type="submit" id="button-addon2">Get short URL</button>
       </div>
 </form>
+<% if(name) { %>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -57,6 +64,9 @@
             <% }) %>
         </tbody>
     </table>
+    <%} else { %>
+      <span>Please login to generate/view the short urls for Long urls.</span> 
+      <% } %>
   </div>
 </div>
 </body>
